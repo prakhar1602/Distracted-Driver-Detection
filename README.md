@@ -1,0 +1,2 @@
+# Distracted-Driver-Detection
+ With this project, we aim to take a preliminary step in this direction by focusing on distracted driver detection via sample images of drivers. We will work around building a high-accuracy model capable of classifying whether a driver is driving safely or is distracted doing some other activity. We would be working simultaneously throughout the project life-cycle with no specific defined division of labor as of the moment.
