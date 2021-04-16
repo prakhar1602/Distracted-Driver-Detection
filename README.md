@@ -19,12 +19,20 @@ References
 
 
 [1] G. E. Hinton A. Krizhevsky, I. Sutskever. Imagenet classification with deep convolutional neural networks. page 2012. https://papers.nips.cc/paper/2012/file/c399862d3b9d6b76c8436e924a68c45b-Paper. pdf.
+
 [2] CDC. Transportation safety: Distracted driving. https://www.cdc.gov/transportationsafety/distracted_driving/index.html.
+
 [3] State Farm. State farm distracted driver detection. https://www.kaggle.com/c/state-farm-distracted-driver-detection/data.
+
 [4] Kaiming He, Xiangyu Zhang, Shaoqing Ren, and Jian Sun. Deep residual learning for image recognition, 2015.
+
 [5] M. A. Hearst, S. T. Dumais, E. Osuna, J. Platt, and B. Scholkopf. Support vector machines. IEEE Intelligent Systems and their Applications, 13(4):18–28, 1998.
+
 [6] Pytorch. Open source machine learning library based on the torch library. https://pytorch.org/.
+
 [7] J.S. Hickman J. Bocanegra R.L. Olson, R.J. Hanowski. Driver distraction in commercial vehicle operations. U.S. Department of Transportation, Washington, DC. https://www.fmcsa.dot.gov/sites/fmcsa.dot.gov/files/docs/ FMCSA-RRR-09-042.pdf.
+
 [8] scikit learn. Free software machine learning library for the python. https://scikit-learn.org/stable/.
+
 [9] Karen Simonyan and Andrew Zisserman. Very deep convolutional networks for large-scale image recognition, 2015.
 2
