@@ -46,6 +46,6 @@ class data_preprocess(object):
         Function to call load_images function to laod data and generate the pickle files
         '''
         X, y = self.load_images()
-        pickle.dump(X, open('featureData2.pkl', 'wb'))
-        pickle.dump(y, open('targetData2.pkl','wb'))
+        pickle.dump(X, open('featureData.pkl', 'wb'))
+        pickle.dump(y, open('targetData.pkl','wb'))
     
