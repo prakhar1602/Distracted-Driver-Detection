@@ -13,7 +13,7 @@ class data_preprocess(object):
         self.size = size
         
     #defining function to load data
-    def load_images(self, size= 128):
+    def load_images(self):
         '''
         Function to load images using CV2 and resized to get them ready for training
         Arguments:
@@ -34,7 +34,7 @@ class data_preprocess(object):
                     if file.endswith('jpg'):
                         fpath = os.path.join(subdir_path,file)
                         img = cv2.imread(fpath)
-                        img_resize = cv2.resize(img,(128,128))
+                        img_resize = cv2.resize(img,(self.size,self.size))
                         self.images.append(img_resize)
                         self.labels.append(int(fpath.split('/')[-2].replace('c', '')))
 
