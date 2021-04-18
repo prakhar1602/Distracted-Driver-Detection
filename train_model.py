@@ -2,11 +2,11 @@ from builtins import object
 import pandas as pd
 
 class train_model(object):
-    def __init__(self, model, train, test, criterion, optimizer, num_epochs = 5, device='cpu'):
-        super(vgg16, self).__init__()
+    def __init__(self, model, trainset, testset, criterion, optimizer, num_epochs = 5, device='cpu'):
+        super(train_model, self).__init__()
         self.model = model
-        self.train = train
-        self.test = test
+        self.train = trainset
+        self.test = testset
         self.criterion = criterion
         self.optimizer = optimizer
         self.num_epochs = num_epochs
@@ -30,6 +30,9 @@ class train_model(object):
         y_pred-- Predicted classes
         accuracy_df-- dataframe consisitng accuracy and loss scores
         '''
+        train_loss = list()
+        train_accuracy = list()
+        test_accuracy = list()
 
         for epoch in range(self.num_epochs):
             print('Epoch: ', epoch)
@@ -38,9 +41,9 @@ class train_model(object):
             epoch_train_loss = 0
             epoch_test_loss = 0
             for  images, labels in self.train:
-                images, labels = images.to(device), labels.to(device)
+                images, labels = images.to(self.device), labels.to(self.device)
                 self.optimizer.zero_grad()
-                outputs = self.model(images)
+                outputs = self.model.forward(images)
                 loss = self.criterion(outputs, labels)
                 loss.backward()
                 self.optimizer.step()
@@ -78,12 +81,10 @@ class train_model(object):
         model.eval()
         correct = 0
         for images, labels in loader:
-            images = images.view(images.shape[0], -1)
+            images, labels = images.to(self.device), labels.to(self.device)
             output = model(images)
             _, predicted = torch.max(output.data, 1)
             correct += (predicted == labels).float().sum().item()
 
         accuracy = 100 * correct / len(loader.dataset)
         return accuracy
-
-
