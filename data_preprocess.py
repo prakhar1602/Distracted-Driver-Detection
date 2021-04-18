@@ -6,6 +6,7 @@ import pickle
 import torch
 from torchvision.transforms import transforms
 from torchvision import datasets
+from torch.utils.data.sampler import SubsetRandomSampler
 import ast
 from builtins import object
 
@@ -45,6 +46,7 @@ class data_preprocess(object):
         return np.array(self.images), np.array(self.labels)
     
     
+    
     def pytorch_dataloader(self):
         '''
         Function to load data as per pytorch dataloader standards to be used with deep learning models
@@ -62,6 +64,35 @@ class data_preprocess(object):
 
         data = datasets.ImageFolder(self.path, transform =imgTransform)
         return data
+    
+    
+    
+    def split_data_train_test(self,data, test_split=0.33):
+        '''
+        Function to create train test splits for the given data
+
+        data-- takes input the data to be split
+        test_split-- takes input the test split ratio 
+
+        Return train and test split datasets
+        '''
+        
+        num_samples =  len(data)
+        indices = list(range(num_samples))
+        np.random.shuffle(indices)
+        split = int(test_split*num_samples)
+
+        index_train, index_test = indices[split:], indices[:split]
+        sampler_train = SubsetRandomSampler(index_train)
+        sampler_test = SubsetRandomSampler(index_test)
+
+        trainloader = torch.utils.data.DataLoader(data,
+                       sampler=sampler_train, batch_size=64)
+        testloader = torch.utils.data.DataLoader(data,
+                       sampler=sampler_test, batch_size=64)
+
+        return trainloader, testloader
+
         
     
     #create pickle files
