@@ -54,7 +54,7 @@ class data_preprocess(object):
         #Defining image transforms
         imgTransform =  transforms.Compose([
             transforms.ToTensor(),
-            transforms.CenterCrop(size=224),
+            transforms.Resize(224),
             transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
         ])
 
@@ -66,10 +66,8 @@ class data_preprocess(object):
     def split_data_train_test(self,data, test_split=0.33, batch_size = 64):
         '''
         Function to create train test splits for the given data
-
         data-- takes input the data to be split
         test_split-- takes input the test split ratio 
-
         Return train and test split datasets
         '''
         
@@ -104,4 +102,3 @@ class data_preprocess(object):
         elif transform==True:
             data = self.pytorch_dataloader()
             pickle.dump(data, open('data.pkl','wb'))
-        
