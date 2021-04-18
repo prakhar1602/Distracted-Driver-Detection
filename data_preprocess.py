@@ -51,14 +51,10 @@ class data_preprocess(object):
         '''
         Function to load data as per pytorch dataloader standards to be used with deep learning models
         '''
-        data = list()
-        labels = list()
-        
         #Defining image transforms
         imgTransform =  transforms.Compose([
-            transforms.ToPILImage(),
-            transforms.CenterCrop(size=224),
             transforms.ToTensor(),
+            transforms.CenterCrop(size=224),
             transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
         ])
 
