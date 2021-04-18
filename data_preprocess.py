@@ -63,7 +63,7 @@ class data_preprocess(object):
     
     
     
-    def split_data_train_test(self,data, test_split=0.33):
+    def split_data_train_test(self,data, test_split=0.33, batch_size = 64):
         '''
         Function to create train test splits for the given data
 
@@ -83,9 +83,9 @@ class data_preprocess(object):
         sampler_test = SubsetRandomSampler(index_test)
 
         trainloader = torch.utils.data.DataLoader(data,
-                       sampler=sampler_train, batch_size=64)
+                       sampler=sampler_train, batch_size=batch_size)
         testloader = torch.utils.data.DataLoader(data,
-                       sampler=sampler_test, batch_size=64)
+                       sampler=sampler_test, batch_size=batch_size)
 
         return trainloader, testloader
 
