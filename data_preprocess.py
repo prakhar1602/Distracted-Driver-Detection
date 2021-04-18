@@ -3,16 +3,20 @@ import os
 import pandas as pd
 import cv2
 import pickle
+import torch
+from torchvision.transforms import transforms
+from torchvision import datasets
 import ast
 from builtins import object
 
 class data_preprocess(object):
-    def __init__(self, path, size= 128):
+    def __init__(self, path, size= 256, transform = False):
         super(data_preprocess, self).__init__()
         self.path = path
         self.size = size
+        self.transform = transform
         
-    #defining function to load data
+    #defining function to load data for general ML
     def load_images(self):
         '''
         Function to load images using CV2 and resized to get them ready for training
@@ -38,14 +42,39 @@ class data_preprocess(object):
                         self.images.append(img_resize)
                         self.labels.append(int(fpath.split('/')[-2].replace('c', '')))
 
-        return self.images, self.labels
+        return np.array(self.images), np.array(self.labels)
+    
+    
+    def pytorch_dataloader(self):
+        '''
+        Function to load data as per pytorch dataloader standards to be used with deep learning models
+        '''
+        data = list()
+        labels = list()
+        
+        #Defining image transforms
+        imgTransform =  transforms.Compose([
+            transforms.ToPILImage(),
+            transforms.CenterCrop(size=224),
+            transforms.ToTensor(),
+            transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
+        ])
+
+        data = datasets.ImageFolder(self.path, transform =imgTransform)
+        return data
+        
     
     #create pickle files
-    def pickle_dump(self):
+    def pickle_dump(self,transform = False ):
         '''
         Function to call load_images function to laod data and generate the pickle files
         '''
-        X, y = self.load_images()
-        pickle.dump(X, open('featureData.pkl', 'wb'))
-        pickle.dump(y, open('targetData.pkl','wb'))
+        if transform==False:
+            X, y = self.load_images()
+            pickle.dump(X, open(str('featureData'+str(self.size)+'.pkl'), 'wb'))
+            pickle.dump(y, open(str('targetData'+str(self.size)+'.pkl'),'wb'))
     
+        elif transform==True:
+            data = self.pytorch_dataloader()
+            pickle.dump(data, open('data.pkl','wb'))
+        
