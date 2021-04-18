@@ -2,14 +2,13 @@ from builtins import object
 import pandas as pd
 
 class train_model(object):
-    def __init__(self, model, train, test, criterion, optimizer, learning_rate = 0.01, num_epochs = 5, device='cpu'):
+    def __init__(self, model, train, test, criterion, optimizer, num_epochs = 5, device='cpu'):
         super(vgg16, self).__init__()
         self.model = model
         self.train = train
         self.test = test
         self.criterion = criterion
         self.optimizer = optimizer
-        self.lr = learning_rate
         self.num_epochs = num_epochs
         self.device = device
         
