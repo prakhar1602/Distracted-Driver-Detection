@@ -16,7 +16,8 @@ class VGG(nn.Module):
         #freezing the pretrained layers
         for param in self.model.parameters():
             param.requires_grad = False
-            
+
+        
         self.model.classifier[6] = nn.Sequential(
             nn.Linear(self.num_input, 256),
             nn.ReLU(),
@@ -24,5 +25,5 @@ class VGG(nn.Module):
             nn.Linear(256, self.num_classes),
             nn.LogSoftmax(dim=1)
             )
-        
+            
         return self.model

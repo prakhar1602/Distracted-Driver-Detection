@@ -1,5 +1,7 @@
 from builtins import object
 import pandas as pd
+import torch
+from torchvision import datasets
 
 class train_model(object):
     def __init__(self, model, trainset, testset, criterion, optimizer, num_epochs = 5, device='cpu'):
@@ -39,15 +41,15 @@ class train_model(object):
             correct_train = 0
             correct_test = 0
             epoch_train_loss = 0
-            epoch_test_loss = 0
+            
             for  images, labels in self.train:
                 images, labels = images.to(self.device), labels.to(self.device)
                 self.optimizer.zero_grad()
-                outputs = self.model.forward(images)
+                outputs = self.model(images)
                 loss = self.criterion(outputs, labels)
                 loss.backward()
                 self.optimizer.step()
-                epoch_train_loss += loss.item() 
+                epoch_train_loss += loss.item()
 
             epoch_train_loss = epoch_train_loss/len(self.train)
             train_loss.append(epoch_train_loss)
@@ -68,7 +70,7 @@ class train_model(object):
                                    'Train Accuracy': train_accuracy,
                                    'Test Accuracy': test_accuracy})
 
-        return y_test, y_pred, accuracy_df
+        return self.model, accuracy_df
     
     def calculate_acc(self,model,loader):
         '''
